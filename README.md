@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Shadow Strike](https://img.shields.io/badge/SHADOW%20STRIKE-ULTIMATE%20EDITION-e63946?style=for-the-badge&labelColor=0d0d1a)
-![Version](https://img.shields.io/badge/VERSION-3.0-ffd60a?style=for-the-badge&labelColor=0d0d1a)
+![Version](https://img.shields.io/badge/VERSION-1.0-ffd60a?style=for-the-badge&labelColor=0d0d1a)
 ![Characters](https://img.shields.io/badge/15%20CHARACTERS-7c3aed?style=for-the-badge&labelColor=0d0d1a)
 ![Levels](https://img.shields.io/badge/100%20LEVELS-2ec4b6?style=for-the-badge&labelColor=0d0d1a)
 

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════╗
+  ║       SHADOW STRIKE — ULTIMATE EDITION v3.0      ║
+  ║  Author : SHAIKH YASIR                           ║
+  ║  GitHub : https://github.com/YasirShaikh03      ║
+  ║  15 Characters · 30 Backgrounds · 100 Levels    ║
+  ╚══════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="author" content="SHAIKH YASIR">
+  <meta name="description" content="Shadow Strike — Ultimate Stickman Fighter. 15 characters, 30 backgrounds, 100 levels.">
+  <title>Shadow Strike — Ultimate Edition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ GLOBAL OVERLAYS ══════════════════════════════════ -->
+<div id="flash"></div>
+<div id="victory-banner"><div id="win-text">VICTORY!</div></div>
+<div id="stunt-label"></div>
+<div id="streak"></div>
+<div id="achieve-toast"></div>
+
+<!-- ══ HELP MODAL ══════════════════════════════════════ -->
+<!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+<div id="help-modal">
+  <div class="help-box">
+    <h3>🕹️ HOW TO PLAY</h3>
+
+    <div class="help-section">
+      <h4>⌨️ PC Controls</h4>
+      <div class="help-row"><span class="help-key">A</span><span class="help-key">D</span> Move left / right</div>
+      <div class="help-row"><span class="help-key">W</span> Jump &nbsp;|&nbsp; <span class="help-key">W W</span> Flip Jump (double-tap)!</div>
+      <div class="help-row"><span class="help-key">J</span> Punch &nbsp;|&nbsp; <span class="help-key">K</span> Kick &nbsp;|&nbsp; <span class="help-key">L</span> Special</div>
+      <div class="help-row"><span class="help-key">F</span> Block (hold) &nbsp;|&nbsp; <span class="help-key">SPC</span> Dodge</div>
+      <div class="help-row"><span class="help-key">T</span> Taunt (+SP &amp; intimidate!)</div>
+      <div class="help-row"><span class="help-key">ESC</span> Quit to menu</div>
+    </div>
+
+    <div class="help-section">
+      <h4>📱 Mobile</h4>
+      <div class="help-row">Use the on-screen D-pad and action buttons.</div>
+      <div class="help-row">SP button pulses when your special is ready!</div>
+    </div>
+
+    <div class="help-section">
+      <h4>⚡ Combat Tips</h4>
+      <div class="help-row">🔥 Fill your SP bar to unleash your special move.</div>
+      <div class="help-row">🛡️ Block reduces damage to ~12% — use it wisely.</div>
+      <div class="help-row">💨 Dodge costs 22 SP but grants full invincibility.</div>
+      <div class="help-row">🎯 Taunting builds SP and intimidates enemies.</div>
+      <div class="help-row">⚠️ RAGE MODE activates below 25% HP — stay sharp!</div>
+    </div>
+
+    <div class="help-section">
+      <h4>🌟 New Features</h4>
+      <div class="help-row">• 15 unique characters with special moves &amp; body styles</div>
+      <div class="help-row">• 30 purchasable background themes</div>
+      <div class="help-row">• Win Streaks give bonus coins 🔥</div>
+      <div class="help-row">• Daily Challenge for 2x coin rewards 🎯</div>
+      <div class="help-row">• 12 Achievements to unlock 🏅</div>
+      <div class="help-row">• Double-tap W = backflip stunt!</div>
+    </div>
+
+    <div class="help-section">
+      <h4>💰 Progression</h4>
+      <div class="help-row">Win fights → earn coins &amp; XP → level up → unlock more!</div>
+      <div class="help-row">Levels 1–10 easy · 91–100 legendary difficulty.</div>
+    </div>
+
+    <button class="btn b2 bsm" style="margin-top:10px;min-width:120px" onclick="closeHelp()">✕ CLOSE</button>
+  </div>
+</div>
+
+<!-- ══ TITLE SCREEN ════════════════════════════════════ -->
+<div class="scr" id="ts">
+  <h1>SHADOW STRIKE</h1>
+  <p class="tagline">ULTIMATE STICKMAN FIGHTER</p>
+
+  <!-- Stats bar -->
+  <div class="top-bar">
+    <div class="sbox">
+      <div class="sl">LEVEL</div>
+      <div class="sv" id="ts-lvl">1</div>
+    </div>
+    <div class="sbox" style="align-items:center">
+      <div class="sl">XP PROGRESS</div>
+      <div class="xbw"><div class="xbf" id="ts-xp" style="width:0%"></div></div>
+      <div class="sl" id="ts-xpn">0/100</div>
+    </div>
+    <div class="sbox"><div class="sl">💰 COINS</div><div class="sv" id="ts-coins">0</div></div>
+    <div class="sbox"><div class="sl">🏆 WINS</div><div class="sv" id="ts-wins">0</div></div>
+    <div class="sbox"><div class="sl">🔥 STREAK</div><div class="sv" id="ts-streak">0</div></div>
+  </div>
+
+  <!-- Daily challenge info -->
+  <div id="daily-info" style="font-size:11px;margin-bottom:10px;letter-spacing:2px;font-family:'Orbitron',sans-serif;">Loading...</div>
+
+  <!-- Navigation buttons -->
+  <div class="tbtns">
+    <button class="btn" onclick="showLevelSelect()">▶ FIGHT</button>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+      <button class="btn b4 bsm" style="min-width:130px" onclick="showCharShop()">🥊 CHARACTERS</button>
+      <button class="btn b5 bsm" style="min-width:130px" onclick="showPowerShop()">⚡ POWERS</button>
+      <button class="btn b6 bsm" style="min-width:130px" onclick="showBGShop()">🎨 BACKGROUNDS</button>
+    </div>
+
+    <button class="btn b2 bsm" style="min-width:196px" onclick="showHelp()">📖 CONTROLS / HELP</button>
+  </div>
+</div>
+
+<!-- ══ LEVEL SELECT ═════════════════════════════════════ -->
+<div class="scr off" id="level-screen">
+  <h2>SELECT LEVEL</h2>
+  <div class="lssub" id="ls-sub">Pick a level — 1 is beginner, 100 is legend!</div>
+  <div class="lgrid" id="lgrid"></div>
+  <button class="btn b2 bsm" onclick="showTitle()">← BACK</button>
+</div>
+
+<!-- ══ CHARACTER SHOP ═══════════════════════════════════ -->
+<!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+<div class="scr off" id="shop-screen">
+  <h2>CHARACTERS</h2>
+  <div class="lssub">💰 Coins: <span id="scoins">0</span> &nbsp;·&nbsp; 15 fighters to collect!</div>
+  <div class="cgrid" id="cgrid"></div>
+  <button class="btn b2 bsm" onclick="showTitle()">← BACK</button>
+</div>
+
+<!-- ══ POWER UPGRADES ═══════════════════════════════════ -->
+<div class="scr off" id="pshop-screen">
+  <h2>POWER UPGRADES</h2>
+  <div class="lssub">Permanent stat upgrades! 💰 Coins: <span id="pcoins">0</span></div>
+  <div class="pgrid" id="pgrid"></div>
+  <button class="btn b2 bsm" onclick="showTitle()">← BACK</button>
+</div>
+
+<!-- ══ BACKGROUND SHOP ══════════════════════════════════ -->
+<div class="scr off" id="bgshop-screen">
+  <h2>🎨 BACKGROUNDS</h2>
+  <div class="lssub">30 unique arena themes! 💰 Coins: <span id="bgcoins">0</span></div>
+  <div class="bggrid" id="bggrid"></div>
+  <button class="btn b2 bsm" onclick="showTitle()">← BACK</button>
+</div>
+
+<!-- ══ GAME WRAP ═════════════════════════════════════════ -->
+<!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+<div id="game-wrap" style="display:none">
+
+  <!-- HUD -->
+  <div id="hud">
+    <!-- Player side -->
+    <div class="fh">
+      <div class="fn">
+        <span id="p-icon">🥊</span>
+        <span id="p-name">YOU</span>
+        <span id="pw" style="font-size:9px;color:var(--muted)"></span>
+      </div>
+      <div class="hpw"><div class="hpb hp-p" id="php" style="width:100%"></div></div>
+      <div class="spw"><div class="spb" id="psp" style="width:0%"></div></div>
+      <div class="splbl" id="p-splbl">⚡ SPECIAL</div>
+    </div>
+
+    <!-- Middle — timer & round -->
+    <div class="hm">
+      <div class="rl" id="rl">ROUND 1</div>
+      <div class="tim" id="tim">99</div>
+      <div class="cmb" id="comb">—</div>
+    </div>
+
+    <!-- Enemy side -->
+    <div class="fh r">
+      <div class="fn">
+        <span id="ew" style="font-size:9px;color:var(--muted)"></span>
+        LV<span id="e-lvl">1</span>
+        <span id="e-icon">👹</span>
+      </div>
+      <div class="hpw"><div class="hpb hp-e" id="ehp" style="width:100%"></div></div>
+      <div class="spw" style="transform:scaleX(-1)"><div class="spb" id="esp" style="width:0%"></div></div>
+      <div class="splbl" style="text-align:right" id="e-splbl">SPECIAL ⚡</div>
+    </div>
+  </div>
+
+  <!-- Arena canvas -->
+  <div id="arena">
+    <canvas id="gc" width="900" height="360"></canvas>
+    <div id="ov">
+      <div id="ov-t">FIGHT!</div>
+      <div id="ov-s">ROUND 1</div>
+      <button class="btn bsm" id="ov-btn" style="display:none" onclick="nextRound()">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- Keyboard controls bar (desktop) -->
+  <div id="cb">
+    <div class="cg">
+      <div class="ct">Move</div>
+      <div class="ck"><span class="key">A</span><span class="key">D</span><span class="key">W</span><span class="kl">Jump</span></div>
+    </div>
+    <div class="cg">
+      <div class="ct">Attack</div>
+      <div class="ck">
+        <span class="key">J</span><span class="kl">Punch</span>
+        <span class="key">K</span><span class="kl">Kick</span>
+        <span class="key">L</span><span class="kl">Special</span>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="ct">Defend</div>
+      <div class="ck"><span class="key">F</span><span class="kl">Block</span><span class="key">SPC</span><span class="kl">Dodge</span></div>
+    </div>
+    <div class="cg">
+      <div class="ct">Taunt</div>
+      <div class="ck"><span class="key">T</span><span class="kl">+Morale</span></div>
+    </div>
+    <div class="cg">
+      <div class="ct">Quit</div>
+      <div class="ck"><span class="key" onclick="showTitle()" style="cursor:pointer">ESC</span></div>
+    </div>
+  </div>
+
+  <!-- Touch controls (mobile) -->
+  <div id="tc">
+    <!-- D-pad -->
+    <div class="dpg">
+      <div></div>
+      <div class="dp" id="tU">▲</div>
+      <div></div>
+      <div class="dp" id="tL">◀</div>
+      <div class="dp" id="tC" style="font-size:10px;color:var(--muted)">●</div>
+      <div class="dp" id="tR">▶</div>
+    </div>
+    <!-- Action buttons -->
+    <div class="ag">
+      <button class="ab p" id="tP">PUNCH<div class="abs">J</div></button>
+      <button class="ab k" id="tK">KICK<div class="abs">K</div></button>
+      <button class="ab s" id="tS">SP<div class="abs">L</div></button>
+      <button class="ab b" id="tB">BLK<div class="abs">F</div></button>
+    </div>
+  </div>
+
+</div><!-- end #game-wrap -->
+
+<!-- ══ SCOREBOARD ═══════════════════════════════════════ -->
+<!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+<div class="scr off" id="sb" style="background:linear-gradient(135deg,#f0f4ff,#fffbe8)!important;color:#111;">
+  <h2 id="sb-title" style="text-shadow:none;">VICTORY!</h2>
+  <div class="luban" id="luban">⬆ LEVEL UP!</div>
+
+  <table class="stb">
+    <tr><th>Stat</th><th>Value</th></tr>
+    <tr><td>Result</td>      <td class="sv" id="sb-res">—</td></tr>
+    <tr><td>Level</td>       <td class="sv" id="sb-lv">—</td></tr>
+    <tr><td>Coins Earned</td><td class="sv" id="sb-co">—</td></tr>
+    <tr><td>XP Earned</td>   <td class="sv" id="sb-xp">—</td></tr>
+    <tr><td>Hits Landed</td> <td class="sv" id="sb-h">—</td></tr>
+    <tr><td>Max Combo</td>   <td class="sv" id="sb-c">—</td></tr>
+    <tr><td>Win Streak</td>  <td class="sv" id="sb-streak">—</td></tr>
+    <tr><td>Player Level</td><td class="sv" id="sb-yl">—</td></tr>
+  </table>
+
+  <div class="sbbtns">
+    <button class="btn bsm"        onclick="restartLevel()">RETRY</button>
+    <button class="btn b4 bsm" id="sb-next" onclick="nextLevel()">NEXT LV</button>
+    <button class="btn b6 bsm"     onclick="showBGShop()">🎨 BG</button>
+    <button class="btn b5 bsm"     onclick="showCharShop()">SHOP</button>
+    <button class="btn b2 bsm"     onclick="showTitle()">MENU</button>
+  </div>
+</div>
+
+<!-- ══ MUTE BUTTON ══════════════════════════════════════ -->
+<div id="mute" onclick="toggleMute()">🔊</div>
+
+<!-- ══ SCRIPTS ══════════════════════════════════════════ -->
+<!-- author: SHAIKH YASIR | https://github.com/YasirShaikh03 -->
+<script src="game.js"></script>
+
+</body>
+</html>
+<!--
+  End of Shadow Strike — Ultimate Edition
+  Author : SHAIKH YASIR
+  GitHub : https://github.com/YasirShaikh03
+-->

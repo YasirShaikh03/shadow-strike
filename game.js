@@ -214,7 +214,7 @@ const CHARS = [
   },
   // 14
   {
-    name: 'GOD', icon: '👁️', col: '#ffffff', spCol: '#ffd700', price: 10000,
+    name: 'LEGEND KILLER ', icon: '👁️', col: '#ffffff', spCol: '#ffd700', price: 10000,
     desc: 'DIVINE WRATH — undodgeable',
     sname: 'DIVINE WRATH',
     bodyStyle: 'divine',

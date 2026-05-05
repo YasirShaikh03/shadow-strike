@@ -71,7 +71,7 @@ const ACHIEVEMENTS = [
   { id: 'streak5',     name: 'ON FIRE',        desc: 'Win 5 in a row',             icon: '🔥', check: () => S.bestStreak >= 5 },
   { id: 'streak10',    name: 'UNSTOPPABLE',    desc: 'Win 10 in a row',            icon: '💀', check: () => S.bestStreak >= 10 },
   { id: 'combo10',     name: 'COMBO KING',     desc: 'Land a 10x combo',           icon: '⚡', check: () => maxCombo >= 10 },
-  { id: 'combo20',     name: 'GODLIKE',        desc: 'Land a 20x combo',           icon: '👁️', check: () => maxCombo >= 20 },
+  { id: 'combo20',     name: 'legend killer',        desc: 'Land a 20x combo',           icon: '👁️', check: () => maxCombo >= 20 },
   { id: 'level50',     name: 'HALF WAY',       desc: 'Reach level 50',             icon: '🎯', check: () => S.clearedLevels.includes(50) },
   { id: 'level100',    name: 'LEGEND',         desc: 'Clear level 100',            icon: '🏆', check: () => S.clearedLevels.includes(100) },
   { id: 'allchars',    name: 'COLLECTOR',      desc: 'Own all 15 characters',      icon: '🌟', check: () => S.owned.length >= 15 },
